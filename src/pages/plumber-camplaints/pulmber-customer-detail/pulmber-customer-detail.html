@@ -1,0 +1,226 @@
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title>{{ 'Customer Detail' | translate }}</ion-title>
+    
+    
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  
+  <div class="lists mb16">
+    <div class="pumber-name">
+      <span class="alphabet">{{plumber_detail.customerName ? plumber_detail.customerName[0].toUpperCase():'' }}</span>
+      <div class="name pl30">
+        <h4>{{plumber_detail.customerName | titlecase}}</h4>
+        <p>{{plumber_detail.customerMobileNo}}</p> 
+        <a  class="phone-call"   href="tel:{{plumber_detail.customerMobileNo}}"><i class="material-icons">call</i></a>
+      </div>
+    </div>
+    
+    <table>
+      <tr>
+        <td class="location-td">
+          <p><i class="material-icons">location_on</i>
+            {{plumber_detail.address | titlecase}} {{plumber_detail.city | titlecase}} {{plumber_detail.district | titlecase}} {{plumber_detail.state | titlecase}} {{plumber_detail.pincode}}
+          </p>
+        </td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <td class="w110">{{ 'Complaint ID' | translate}}</td>
+        <td>COM#{{complaint_id}}</td>
+      </tr>
+      <tr>
+        <td> {{ 'Complaint Remark' | translate }}</td>
+        <td>{{plumber_detail.nature_problem}}</td>
+      </tr>
+      
+      <tr>
+        <td>Month Of Purchase</td>
+        <td>{{plumber_detail.month_of_purchase ? plumber_detail.month_of_purchase:'N/A'}}</td>
+      </tr>
+      <tr>
+        <td >Visit Date / Time</td>
+        <td>{{plumber_detail.vis_date | date:'d MMMM y'}} / {{plumber_detail.vis_time}}</td>
+      </tr>
+      <tr>
+        <td>{{ 'Status' | translate }}</td>
+        <td class="{{plumber_detail.complaintStatus}}">{{plumber_detail.complaintStatus}}</td>
+      </tr>
+      <ng-container *ngIf="plumber_detail.complaintStatus=='Closed'">
+        <tr>
+          
+          <td> {{ 'Closed By' | translate }}</td>
+          <td>{{plumber_detail.plumberName}}</td>
+        </tr>
+        
+        <tr>
+          <td> {{ 'Closing Date' | translate}}</td>
+          <td>{{plumber_detail.cancel_date |  date:'d MMMM y'}}</td>
+        </tr>
+        
+        <tr>
+          <td> {{ 'Closing Remark' | translate }}</td>
+          <td>{{plumber_detail.reason_cancel}}</td>
+        </tr>
+      </ng-container>
+      
+      <ng-container *ngIf="plumber_detail.complaintStatus=='Cancel'">
+        <tr>
+          
+          <td> {{ 'Cancel By' | translate}}</td>
+          <td>{{plumber_detail.plumberName}}</td>
+        </tr>
+        
+        <tr>
+          <td> {{ 'Cancel Date' | translate}}</td>
+          <td>{{plumber_detail.cancel_date |  date:'d MMMM y'}}</td>
+        </tr>
+        
+        <tr>
+          <td> {{ 'Reason' | translate}}</td>
+          <td>{{plumber_detail.reason_cancel}}</td>
+          <!-- <a *ngIf="remark_count>0" (click)="goToRemarkHistory()">View all</a> -->
+        </tr>
+        
+        
+      </ng-container>
+      
+      <tr *ngIf="plumber_detail.star>'0'">
+        <td> {{ 'Rating' | translate}}</td>
+        <td>
+          <ul>
+            <li [ngClass]="{'active':plumber_detail.star>='1'}"><a><i class="material-icons" >star</i></a></li>
+            <li [ngClass]="{'active':plumber_detail.star>='2'}"><a><i class="material-icons" >star</i></a></li>
+            <li [ngClass]="{'active':plumber_detail.star>='3'}"><a><i class="material-icons" >star</i></a></li>
+            <li [ngClass]="{'active':plumber_detail.star>='4'}"><a><i class="material-icons"  >star</i></a></li>
+            <li [ngClass]="{'active':plumber_detail.star>='5'}"><a><i class="material-icons" >star</i></a></li>
+            <li><p>{{plumber_detail.star}} Star </p></li>
+          </ul>
+        </td>
+      </tr>
+    </table>
+    
+    <ng-container *ngIf="complaint_media.length > 0">
+      <p class="input-head mb10">{{'Complaint image' | translate}}</p>
+      <div class="add-new padding0" >
+        <div class="uplode-image" >
+          <ul>
+            <li *ngFor="let image of complaint_media;let i=index;">
+              <img  src="{{url + image.file_name}}" (click)="viewImage(url + image.file_name)">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+    
+    <ng-container *ngIf="invoiceImg.length > 0">
+      <p class="input-head mb10">{{'Invoice image' | translate}}</p>
+      <div class="add-new padding0" >
+        <div class="uplode-image" >
+          <ul>
+            <li *ngFor="let image of invoiceImg;let i=index;">
+              <img  src="{{url + image.image_name}}" (click)="viewImage(url + image.image_name)">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  
+  
+  <div class="ion-tab-btn"  *ngIf="plumber_detail.complaintStatus=='Pending' || (plumber_detail.reason_cancel!=='' || plumber_detail.reason_cancel ==='Closed' )">
+    <ion-segment [(ngModel)]="complaint">
+      <ion-segment-button value="parts" >
+        Spare Part
+      </ion-segment-button>
+      <ion-segment-button value="remark" (click)="getComplaintRemark()">
+        Remark
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  
+  <!-- *ngIf="plumber_detail.complaintStatus=='Pending' && plumber_detail.reason_cancel!==''" -->
+  <div [ngSwitch]="complaint">
+    <ng-container *ngSwitchCase="'parts'">
+      <div class="pl16 pr16" >
+        <div class="card-list mb50 " *ngIf="spare_arr.length > 0 && mode != 0">
+          <div class="card-item" *ngFor="let row of spare_arr; let i = index">
+            <div class="data-content">
+              <p><strong>Sapre Part: </strong>{{row.spare_part_name}}</p>
+              <div class="item-flex">
+                <p><strong>Quantity: </strong> {{row.qty}}</p>
+              </div>
+            </div>
+            <div class="data-action" *ngIf="plumber_detail.complaintStatus !='Closed'">
+              <a ion-fab mini color="red" (click)="deleteItem(row.id)"><ion-icon name="trash"></ion-icon></a>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div  *ngIf="spare_arr.length == '' " class="data-not">
+        <img  src="assets/imgs/no_found.svg" class="h80">
+      </div>
+    </ng-container> 
+    
+    <ng-container *ngSwitchCase="'remark'">
+      <div class="chat-remark" *ngIf="complaint_remark.length != ''">
+        <div class="chat"  *ngFor="let row of complaint_remark">
+          {{row.remark}}
+          <span>{{row.date_created |  date:'d MMMM y'}}</span>
+        </div>
+      </div>
+      <div *ngIf="complaint_remark.length == ''" class="data-not">
+        <img  src="assets/imgs/no_found.svg" class="h80">
+      </div>
+    </ng-container>
+  </div>
+  
+  
+  <!-- *ngIf="plumber_detail.spare_parts" -->
+  <!-- <ng-container *ngIf="plumber_detail.complaintStatus =='Pending' && checkinFlag == false">
+    <div class="enquiry-btn task-btn pl16 pr16 mt16" >
+      <button ion-button color="danger" [disabled]="spare_arr.length <= 0" class="green-color" icon-start (click)="goToTaskPage('Closed')">
+        {{ 'Close Complaint' | translate}}
+      </button>
+      <button ion-button  class="reen-color" icon-start (click)="goToTaskPage('Pending')">
+        {{ 'In process' | translate}}
+      </button>
+    </div>
+  </ng-container> -->
+  
+  
+  <ion-fab right bottom *ngIf="plumber_detail.complaintStatus =='Pending' && checkinFlag == false">
+    <button ion-fab color="primary"><ion-icon name="more"></ion-icon></button>
+    <ion-fab-list side="top">
+      <button ion-fab color="secondary" (click)="goToTaskPage('Pending')">
+        <ion-icon name="time"></ion-icon>
+        <ion-label> {{ 'Add Remark' | translate}}</ion-label>
+      </button>
+      <button ion-fab color="secondary" [disabled]="spare_arr.length <= 0" (click)="goToTaskPage('Closed')">
+        <ion-icon name="checkmark"></ion-icon>
+        <ion-label>{{'Close Complaint' | translate}}</ion-label>
+      </button>
+      <button ion-fab color="secondary" (click)="presentCancelPolicyModal()">
+        <ion-icon name="settings"></ion-icon>
+        <ion-label>
+          {{ 'Add Spare Part' | translate}}
+        </ion-label>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
+</ion-content>
+
+
+<ion-footer style="background: #fff;" class="pt16 pb16"  *ngIf="plumber_detail.complaintStatus =='Pending' ">
+  <div class="pl16 pr16" *ngIf="checkinFlag == true">
+    <button ion-button class="primary-btn" (click)="checkin()">
+      {{'Start Checkin' | translate}} 
+    </button>
+  </div>
+</ion-footer>
+

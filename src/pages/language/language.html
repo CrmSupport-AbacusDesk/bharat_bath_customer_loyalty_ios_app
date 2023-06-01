@@ -1,0 +1,49 @@
+<!-- <ion-content padding>
+  <div class="logo" (click)="change_language()">
+    <img src="assets/imgs/logo.png">
+  </div>
+  <div class="heading line mt70 mb16">
+    <p class="font16">भाषा चुनिए / Choose Your Language</p>
+  </div>
+  <ion-list radio-group class="mt15" name="lang" [(ngModel)]="lang">
+    
+  </ion-list>
+</ion-content> -->
+
+<ion-content>
+	
+	<div class="cs-header2">
+		<img class="logo" src="assets/imgs/logo.png" alt="">
+	</div>
+	
+	
+	
+	<ion-list radio-group class="mt15" name="lang" [(ngModel)]="lang">
+		<ion-list-header class="border-heading">
+      भाषा चुनिए / Choose Your Language
+			<!-- Select Registration Type -->
+		</ion-list-header>
+		
+    <ion-item>
+      <ion-label>अंग्रेज़ी (English)</ion-label>
+      <ion-radio color="primary" (click)="set_lang()" checked="{{'en' == lang}}" value="en"></ion-radio>
+    </ion-item> 
+    <ion-item>
+      <ion-label> हिंदी (Hindi)</ion-label>
+      <ion-radio color="primary" (click)="set_lang()" checked="{{'hin' == lang}}" value="hin"></ion-radio>
+    </ion-item> 
+    <ion-item>
+      <ion-label> ਪੰਜਾਬੀ (Punjabi)</ion-label>
+      <ion-radio color="primary" (click)="set_lang()" checked="{{'pa' == lang}}" value="pa"></ion-radio>
+    </ion-item>   
+    
+	</ion-list>
+	
+	
+</ion-content>
+
+<ion-footer>
+  <div class="left-right20">
+    <button ion-button class="cs-btn" *ngIf="lang!=''" (click)="karigar_id ? update_lang() : continue()">{{'Continue' | translate}}</button>
+  </div>
+</ion-footer>

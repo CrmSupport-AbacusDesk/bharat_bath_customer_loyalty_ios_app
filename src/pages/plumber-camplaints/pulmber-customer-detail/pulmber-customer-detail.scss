@@ -1,0 +1,34 @@
+page-pulmber-customer-detail {
+    
+    
+    .chat-remark{
+        padding: 16px;
+        display: flex;
+        flex-direction: column-reverse;
+        
+        .chat {
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 13px;
+            
+            
+            span{
+                display: block;
+                text-align: right;
+                font-size: 11px;
+                color: #4b4b4b;
+            }
+
+            &:nth-child(even){
+                background: #f0fbdf;
+            }
+        }
+    }
+
+    .data-not {
+        height: 50vh;
+    }
+    
+}

@@ -1,0 +1,14 @@
+<svg id="shower_black_36dp" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <g id="Group_4634" data-name="Group 4634">
+    <path id="Path_1243" data-name="Path 1243" d="M0,0H24V24H0Z" fill="none"/>
+  </g>
+  <g id="Group_4635" data-name="Group 4635">
+    <circle id="Ellipse_29" data-name="Ellipse 29" cx="1" cy="1" r="1" transform="translate(7 16)" fill="#83b735"/>
+    <circle id="Ellipse_30" data-name="Ellipse 30" cx="1" cy="1" r="1" transform="translate(11 16)" fill="#83b735"/>
+    <circle id="Ellipse_31" data-name="Ellipse 31" cx="1" cy="1" r="1" transform="translate(15 16)" fill="#83b735"/>
+    <path id="Path_1244" data-name="Path 1244" d="M13,5.08V3H11V5.08A7,7,0,0,0,5,12v2H19V12A7,7,0,0,0,13,5.08Z" fill="#83b735"/>
+    <circle id="Ellipse_32" data-name="Ellipse 32" cx="1" cy="1" r="1" transform="translate(7 19)" fill="#83b735"/>
+    <circle id="Ellipse_33" data-name="Ellipse 33" cx="1" cy="1" r="1" transform="translate(11 19)" fill="#83b735"/>
+    <circle id="Ellipse_34" data-name="Ellipse 34" cx="1" cy="1" r="1" transform="translate(15 19)" fill="#83b735"/>
+  </g>
+</svg>

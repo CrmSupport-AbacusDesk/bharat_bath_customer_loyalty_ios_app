@@ -1,0 +1,59 @@
+
+<ion-header class="main-header remove">
+    <ion-navbar>
+        <ion-title>{{ 'My Offer' | translate}} </ion-title>
+    </ion-navbar>
+    
+    <ion-toolbar color="white">
+        <div class="ion-tab-btn">
+            <ion-segment [(ngModel)]="offer">
+                <ion-segment-button value="active"  (click) ="getofferList(offer)">
+                    Active
+                </ion-segment-button>
+                <ion-segment-button value="deactive" (click) ="getofferList(offer)">
+                    Inactive
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
+
+
+<div [ngSwitch]="offer"  *ngIf="offer_list.length">
+    <div class="mb50">
+        <div class="colum-box">
+            <ul>
+                <li *ngFor="let list of offer_list;let i=index"  (click)="goOnOffersPage(list.id, list.offer_status)" [ngClass]="{'de_active': offer == 'deactive'}">
+                    <div class="top-column">
+                        <img src="{{list.offer_banner?url+list.offer_banner:'assets/imgs/no_found.svg'}}">
+                    </div>
+                    <div class="botm-column">
+                        <h2>{{list.title | titlecase | translate}}</h2>
+                        <p>{{ 'Valid Upto' | translate}} : {{list.end_date | date:'d MMMM y'}}</p>
+                        <i class="material-icons">trending_flat</i>
+                    </div>
+                    
+                </li>
+            </ul>
+        </div>
+    </div>
+  
+</div>
+
+<div *ngIf="!offer_list.length" class="data-not">
+    <img  src="assets/imgs/no_found.svg">
+    
+</div>
+
+
+
+</ion-content>

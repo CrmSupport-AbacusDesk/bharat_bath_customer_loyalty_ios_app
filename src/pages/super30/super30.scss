@@ -1,0 +1,58 @@
+page-super30 {
+    
+    
+    .super-table {
+        background: #f0f0f0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+
+        table{
+            width: 100%;
+            table-layout: fixed;
+            box-sizing: border-box;
+            border-collapse: collapse;
+
+            tr{
+
+                border-bottom: 1px solid #ccc;
+
+                td{
+                    padding: 5px;
+                    font-size: 12px;
+
+                    .sm-dp{
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100%;
+                        overflow: hidden;
+
+                        img{
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                    }
+                    p{
+                        font-weight: bold;
+                        font-size: 14px;
+                    }
+
+                    span{
+                        text-align: right;
+                        display: block;
+                        font-size: 15px;
+                    }
+                }
+
+
+                &.active{
+                    td{
+                        color: #fff;
+                        background: #83b735;
+                    }
+                }
+            }
+        }
+    }
+    
+}

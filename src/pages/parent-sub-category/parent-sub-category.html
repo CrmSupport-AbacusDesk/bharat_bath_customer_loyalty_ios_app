@@ -1,0 +1,52 @@
+<ion-header class="main-header remove">
+  <ion-navbar>
+      <ion-title>{{data.name ? data.name:'N/A'}} </ion-title>
+      <ion-buttons end class="mr16">
+        <button ion-button icon-only   (click)="goToMasterSearch()">
+            <ion-icon name="search" color="white"></ion-icon>
+        </button>
+    </ion-buttons> 
+    
+  </ion-navbar>
+  <!-- <ion-toolbar class="fix-search " [ngClass]="{'active' : toggle == true}">
+      <div class="search add-search">
+          <div class="filter">
+              <ion-searchbar type='text' name='category_name' [(ngModel)]="filter.search" (keyup.enter)="getProductCategoryList(filter.search)"></ion-searchbar>
+              <button ion-button icon-only  (click)="toggle = !toggle;"  >
+                <ion-icon name="close" color="white"></ion-icon>
+            </button>
+            </div>
+      </div>
+  </ion-toolbar> -->
+</ion-header>
+
+<ion-content style="background-color: #fafafd;">
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+      </ion-refresher-content>
+  </ion-refresher>
+
+
+  <div class="pr16 pl16 mt16 mb50" *ngIf="sub_cat_list.length" >
+    <div class="ourProduct">
+        <ul>
+            <li *ngFor="let list of sub_cat_list; let i=index" (click)="checkSubCategory(list)">
+                <div class="img-column"><img  src="{{imageUrl + list.actual_image_name}}"></div>
+                <h2>{{list.main_category}}</h2>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+  <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+      <div class="main-div">
+        <ion-list *ngFor="let row of skelton" >
+          <button class="skleton-box"></button>
+      </ion-list>
+        </div>
+
+  </ion-infinite-scroll> -->
+
+</ion-content>

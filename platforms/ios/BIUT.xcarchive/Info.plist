@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ApplicationProperties</key>
+	<dict>
+		<key>ApplicationPath</key>
+		<string>Applications/BIUT.app</string>
+		<key>Architectures</key>
+		<array>
+			<string>arm64</string>
+		</array>
+		<key>CFBundleIdentifier</key>
+		<string>com.BiutCustomer.app</string>
+		<key>CFBundleShortVersionString</key>
+		<string>0.0.3</string>
+		<key>CFBundleVersion</key>
+		<string>0.0.3</string>
+		<key>SigningIdentity</key>
+		<string>Apple Development: Satish Kumar Goyal (D79TZ2R4KH)</string>
+		<key>Team</key>
+		<string>Z2BFG35WRK</string>
+	</dict>
+	<key>ArchiveVersion</key>
+	<integer>2</integer>
+	<key>CreationDate</key>
+	<date>2023-03-30T12:51:32Z</date>
+	<key>Name</key>
+	<string>BIUT</string>
+	<key>SchemeName</key>
+	<string>BIUT</string>
+</dict>
+</plist>

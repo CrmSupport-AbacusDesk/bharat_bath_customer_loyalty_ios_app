@@ -1,0 +1,132 @@
+<!--
+  Generated template for the Super30Page page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title>{{ 'super30 || Your Rank' | translate }} : {{rank}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="super-plumber">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="!plumber_list.length" class="data-not">
+    <img src="assets/imgs/no_found.svg">
+  </div>
+  
+  
+  <div class="super-category" *ngIf="plumber_list.length">
+    <div class="top-three">
+      <div class="three-column" *ngIf="plumber_list.length > 1">
+        <div class="user-dp">
+          <img src="assets/imgs/profile.jpg" *ngIf="second_plumber.profile == ''">
+          <img src="{{second_plumber.profile}}" *ngIf="second_plumber.profile != ''">
+          
+        </div>
+        <h6>{{second_plumber.first_name | titlecase}}</h6>
+        <p>{{second_plumber.district}}</p>
+        <span>{{second_plumber.total_balance}} PTS</span>
+        <div class="position h80">2</div>
+      </div>
+      
+      <div class="three-column" *ngIf="plumber_list.length > 0">
+        <div class="user-dp">
+          <img src="assets/imgs/profile.jpg" *ngIf="first_plumber.profile == ''">
+          <img src="{{first_plumber.profile}}" *ngIf="first_plumber.profile != ''">
+        </div>
+        <h6>{{first_plumber.first_name | titlecase}}</h6>
+        <p>{{first_plumber.district}}</p>
+        <span>{{first_plumber.total_balance}} PTS</span>
+        <div class="position h100">1</div>
+      </div>
+      <div class="three-column" *ngIf="plumber_list.length > 2">
+        <div class="user-dp">
+          <img src="assets/imgs/profile.jpg" *ngIf="third_plumber.profile == ''">
+          <img src="{{third_plumber.profile}}" *ngIf="third_plumber.profile != ''">
+        </div>
+        <h6>{{third_plumber.first_name | titlecase}}</h6>
+        <p>{{third_plumber.district}}</p>
+        <span>{{third_plumber.total_balance}} PTS</span>
+        <div class="position">3</div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="super-table">
+    <table>
+      <tr *ngFor="let row of newPlumber;let i = index" [ngClass]="{'active': row.id == plumber_id}">
+        <td class="w40 text-center">#{{i+4}}</td>
+        <td class="w50">
+          <div class="sm-dp">
+            <img src="assets/imgs/profile.jpg" *ngIf="row.profile == ''">
+            <img src="{{row.profile}}" *ngIf="row.profile != ''">
+          </div>
+        </td>
+        <td>
+          <p>{{row.first_name | titlecase}}</p>
+          {{row.district}}
+        </td>
+        <td class="w100">
+          <span><strong>{{row.total_balance}}</strong> PTS</span>
+        </td>
+        
+      </tr>
+    </table>
+  </div>
+  
+  <!-- <div>
+    
+    <ion-list *ngFor="let row of plumber_list; let i = index;">
+      <button ion-item>
+        <div class="list " [ngClass]="row.id == dbService.userStorageData.id?'active':''">
+          <div class="point">
+            <h4>{{i+1}}</h4>
+          </div>
+          
+          <div class="detail">
+            <div class="info">
+              <h4>{{row.first_name | titlecase}}</h4>
+              <p>{{row.city | titlecase}} {{row.state | titlecase}}</p>
+              <div class="pulmber-rating">
+                <ul>
+                  <li [ngClass]="{'active':row.rating>='1'}">
+                    <a><i  class="material-icons">star</i></a>
+                  </li>
+                  
+                  <li [ngClass]="{'active':row.rating>='2'}">
+                    <a><i  class="material-icons">star</i></a>
+                  </li>
+                  <li [ngClass]="{'active':row.rating>='3'}">
+                    <a><i  class="material-icons">star</i></a>
+                  </li >
+                  
+                  <li [ngClass]="{'active':row.rating>='4'}">
+                    <a><i  class="material-icons">star</i></a>
+                  </li>
+                  
+                  <li [ngClass]="{'active':row.rating>='5'}">
+                    <a><i  class="material-icons">star</i></a>
+                  </li>
+                  
+                </ul>
+              </div>
+            </div>
+            
+            <div class="photo">
+              <img [src]="row.profile" alt="">
+            </div>
+          </div>
+        </div>
+      </button>
+    </ion-list>
+  </div> -->
+  
+  
+  
+</ion-content>

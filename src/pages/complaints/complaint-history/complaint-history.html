@@ -1,0 +1,91 @@
+
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title>{{ 'Complaints' | translate}}</ion-title>
+  </ion-navbar>
+  
+  <ion-toolbar color="white">
+    <div class="ion-tab-btn">
+      <ion-segment [(ngModel)]="complaint">
+        <!-- <ion-segment-button value=""  (click) ="getComplaintHistory('', '')">
+          All
+        </ion-segment-button> -->
+        <ion-segment-button value="Pending" (click) ="getComplaintHistory(data.type, complaint )">
+          {{'Pending' | translate}}
+        </ion-segment-button>
+        <ion-segment-button value="Closed" (click) ="getComplaintHistory(data.type, complaint)">
+          {{'Closed' | translate}}
+        </ion-segment-button>
+        <ion-segment-button value="Cancel" (click) ="getComplaintHistory(data.type, complaint)">
+          {{'Cancel' | translate}}
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+  </ion-toolbar>
+  
+  
+</ion-header>
+
+<ion-content >
+  <ion-refresher (ionRefresh)="doRefresh($event, complaint)">
+    <ion-refresher-content  pullingIcon="arrow-dropdown"
+    pullingText="Pull to refresh"
+    refreshingSpinner="circles"
+    refreshingText="Refreshing...">
+  </ion-refresher-content>
+</ion-refresher>
+
+
+  <div *ngIf="!complaint_list.length" class="data-not">
+    <img  src="assets/imgs/no_found.svg">
+  </div>
+  <div *ngIf="complaint_list.length" class="main-div">
+
+  
+  <div class="main-history">
+    <div class="cs-list" *ngFor="let complaint of complaint_list; let i=index" (click)="onComplaintdetail(complaint.complaintId)">
+      <div class="top-block">
+        <p>{{complaint.customerName}} <span class="cs-badge">{{complaint.complain_no}}</span></p>
+        <div class="number-block">
+          <span>{{complaint.customerMobileNo}}</span>
+          <a class="dialer" href="tel:{{complaint.customerMobileNo}}"><ion-icon ios="ios-call" md="md-call"></ion-icon></a>
+        </div>
+      </div>
+      <div class="middle-block">
+        <div class="date-status">
+          <p><strong>{{ 'Date' | translate }}:</strong>{{dateFormat(complaint.compalintDate)}}</p>
+          <p><strong>{{ 'OTP' | translate }}:</strong> {{complaint.otp}}</p>
+          <p><strong>{{'Status' | translate}}: </strong><span class="{{complaint.status}}">{{complaint.status | titlecase}}</span> </p>
+        </div>
+        <p *ngIf="complaint.issue_category != ''"><strong>{{ 'Issue' | translate }}:</strong> {{complaint.issue_category}}</p>
+        <p *ngIf="complaint.nature_problem != ''"><strong>{{ 'Complaint Remark' | translate }}:</strong> {{complaint.nature_problem}}</p>
+
+      </div>
+      <div class="top-block footer-block">
+        <p *ngIf="complaint.plumberName ==null && complaint.status=='Pending'">A plumber will be soon assigned to your complaint</p>
+        <ng-container *ngIf="complaint.plumberName !=null">
+          <p><span>{{ 'Plumber Name' | translate}}:</span> {{complaint.plumberName}}</p>
+          <div class="number-block">
+            <span>{{complaint.plumberMobileNo}}</span>
+            <a class="dialer" href="tel:{{complaint.plumberMobileNo}}"><ion-icon ios="ios-call" md="md-call"></ion-icon></a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  
+  <!-- infinite scroll -->
+  
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event, data.type)"  *ngIf="flag!=1">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+<!-- infinite scroll end -->
+</div>
+
+<ion-fab right bottom  (click)="goOnComplaintAdd()">
+  <button ion-fab color="primary"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+</ion-content>

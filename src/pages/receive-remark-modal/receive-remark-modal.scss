@@ -1,0 +1,65 @@
+page-receive-remark-modal {
+    
+    
+    ion-content
+    {
+        &.popup-modal
+        {
+            background: rgba(0, 0, 0, 0.5) !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    
+    .input-section .input-adjust textarea{
+        margin-top: 0px;
+    }
+    
+    textarea
+    {
+        width: 100%;
+        height: 100px;
+        padding: 5px !important;
+        box-sizing: border-box;
+    }
+    
+    
+    
+    .cs-box-modal{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        
+        .modal-body {
+            width: 100%;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 6px #cecece;
+            
+            
+            p{
+                margin: -10px -10px 16px -10px  !important;
+                padding: 10px;
+                background: #83b735;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                font-size: 16px;
+                color: #fff;
+            }
+
+            .footer-btn{
+                text-align: right;
+                padding-top: 16px;
+
+                button, a{
+                    text-transform: capitalize !important;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+    
+}

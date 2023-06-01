@@ -1,0 +1,73 @@
+<ion-header class="main-header remove" >
+    <ion-navbar>
+        <ion-title>{{newProducts}}</ion-title>
+        <ion-buttons end class="mr16">
+            <button ion-button icon-only  (click)="toggle = !toggle;">
+                <ion-icon name="search" color="white"></ion-icon>
+            </button>
+        </ion-buttons> 
+    </ion-navbar>
+    
+    
+    <ion-toolbar  class="fix-search " [ngClass]="{'active' : toggle == true}">
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar placeholder="{{ 'Search' | translate }}" type='text' name='search'  [(ngModel)]="filter.search" (ngModelChange)="getProductList(cat_id,filter.search, newProducts)"></ion-searchbar>
+                
+                <button ion-button icon-only  (click)="toggle = !toggle;">
+                    <ion-icon name="close" color="white"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </ion-toolbar>
+
+
+    <ion-toolbar color="white">
+        <div class="ion-tab-btn">
+            <ion-segment [(ngModel)]="newProducts">
+                <ion-segment-button value="new_arrivals" (click)="getProductList('','', 'new_arrivals')">
+                    {{'New Arrivals' | translate}}
+                </ion-segment-button>
+                <ion-segment-button value="hot_selling" (click)="getProductList('','', 'hot_selling')">
+                    {{'Hot selling' | translate}}
+                </ion-segment-button>
+
+                <ion-segment-button value="featured" (click)="getProductList('','', 'featured')">
+                    {{'Featured' | translate}}
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="pr16 pl16 mt16 mb50" *ngIf="prod_list.length">
+        <div class="ourProduct">
+            <ul>
+                <li (click)="goOnProductSubDetailPage(list.id)" *ngFor="let list of prod_list;let i=index">
+                    <div class="img-column"><img  src="{{newArival_imgurl + list.actual_image_name}}"></div>
+                    <h2>{{list.product_name}}</h2>
+                </li>
+            </ul>
+        </div>
+        
+        <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1 && !prod_list.length">
+            <!-- <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content> -->
+            
+        </ion-infinite-scroll>
+    </div>
+    
+    
+    
+    <div *ngIf="no_rec" class="data-not">
+        <img  src="assets/imgs/no_found.svg">
+    </div>
+    
+</ion-content>
+

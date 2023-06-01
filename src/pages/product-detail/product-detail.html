@@ -1,0 +1,53 @@
+
+<ion-header class="main-header remove" >
+    <ion-navbar >
+        <ion-title>{{data.name ? data.name:'N/A'}}</ion-title>
+        <ion-buttons end class="mr16">
+            <button ion-button icon-only  (click)="goToMasterSearch()">
+                <ion-icon name="search" color="white"></ion-icon>
+            </button>
+        </ion-buttons> 
+    </ion-navbar>
+    <!-- <ion-toolbar class="fix-search " [ngClass]="{'active' : toggle == true}">
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar type='text' placeholder="{{ 'Search' | translate }}" name='search'  [(ngModel)]="filter.search" (ngModelChange)="filter.search=='' ? getProductList(cat_id,filter.search) : ''" (keyup.enter)="getProductList(cat_id,filter.search)"></ion-searchbar>
+            
+                <button ion-button icon-only  (click)="toggle = !toggle;">
+                    <ion-icon name="close" color="white"></ion-icon>
+                </button>
+            </div>
+            
+            
+        </div>
+    </ion-toolbar> -->
+    
+</ion-header>
+
+
+<ion-content style="background-color: #fafafd;">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    
+    <div *ngIf="no_rec" class="data-not">
+        <img src="assets/imgs/no_found.svg">
+    </div>
+
+ 
+        
+    <div class="pr16 pl16 mt16 mb50" *ngIf="prod_list_data.length">
+        <div class="ourProduct">
+            <ul>
+                <li *ngFor="let list of prod_list_data; let i=index" (click)="checkSubCategory(list)">
+                    <div class="img-column"><img  src="{{imageUrl + list.actual_image_name}}">
+                    </div>
+                    <h2>{{list.product_name}}</h2>
+                    <span class="code">{{list.material_code}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    </ion-content>
+    

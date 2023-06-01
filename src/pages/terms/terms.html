@@ -1,0 +1,16 @@
+
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title>{{ mode == 'term'? ('Terms & Condtion' | translate) : ('Description' | translate)}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+		<div class="des-box" >
+			<div class="box">
+				<div [innerHTML]="mode == 'term'?terms_detail.terms:terms_detail.description"></div>
+				<!-- {{offer_detail.description}} -->
+			</div>
+		</div>
+
+</ion-content>

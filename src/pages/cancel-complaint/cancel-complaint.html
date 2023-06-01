@@ -1,0 +1,62 @@
+<!--
+  Generated template for the CancelComplaintPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title> {{'Complaint Detail' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <div class="pop-imge">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && submit()">
+      <div class="main-field ">
+        <div class="cs-form">
+          <ion-list class="mb20">
+            
+            <ion-item class="cs-textarea mb20" [ngClass]="{'error':f.submitted && remark?.invalid}">
+              <ion-label floating>Cancel Reason</ion-label>
+              <ion-textarea type="text" name="remark" #remark="ngModel" [(ngModel)]="complaint.remark"  required></ion-textarea>
+            </ion-item>
+            
+          </ion-list> 
+        </div>  
+        
+        <div class="enquiry-btn  my-btn">
+          <button ion-button color="danger" icon-start  >
+            <p>Submit</p>
+            
+          </button>
+        </div>
+      </div>
+    </form>
+    
+    
+    <a (click)="closeModal()"><i class="material-icons">clear</i></a>
+  </div> -->
+  <div class="form">
+    <form #f="ngForm" (ngSubmit)="f.form.valid && submit()">
+      <div >
+        <ion-list no-lines >
+          <ion-item [ngClass]="{'error':f.submitted && remark?.invalid}">
+            <ion-label floating>{{'Cancel Reason' | translate }}<span>*</span></ion-label>
+            <ion-textarea type="text" name="remark" #remark="ngModel" [(ngModel)]="complaint.remark"  required></ion-textarea>
+          </ion-item>
+          <div class="eror" *ngIf="f.submitted && remark?.invalid">
+            <p> {{ 'This field is required' | translate}}</p>
+          </div>
+        </ion-list>
+      </div>
+      
+        <button ion-button class="primary-btn" >
+          {{'Save' | translate}}
+        </button>
+    </form>
+  </div>
+  
+</ion-content>
+
+

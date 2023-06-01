@@ -1,0 +1,40 @@
+
+<ion-header class="main-header remove ">
+	<ion-navbar>
+		<ion-title>
+			{{ 'Video Categories' | translate}}
+		</ion-title>
+	</ion-navbar>
+	<ion-toolbar>
+		<div class="pl16 pr16">
+			<ion-select placeholder="Select"  name="video_type"  #video_type="ngModel" [okText]="'OK' | translate" [cancelText]="'Cancel' | translate" [(ngModel)]="data.video_type"(ngModelChange)="getCatData(data.video_type)" >
+				<ion-option  value="">{{ 'All' | translate}}</ion-option>
+				<ion-option  value="TV commercials"> {{ 'TV commercials' | translate }}</ion-option>
+				<ion-option  value="Product Information">{{ 'Product Information' | translate }}</ion-option>
+				<ion-option  value="Product Installation">{{ 'Product Installation' | translate }}</ion-option>
+				<ion-option  value="About Brand">{{ 'About Brand' | translate }}</ion-option>
+				<ion-option  value="Event">{{ 'Event' | translate }}</ion-option>
+			</ion-select>
+		</div>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+	<div class="button-grid mt16 mb16">
+		<button ion-button color="light" outline color="primary"  *ngFor="let row of categoryData" (click)="goToVideosPage(row.category)">
+			<!-- <img *ngIf="row.category == 'About Company'" src="assets/video/about.svg"> -->
+			<img *ngIf="row.category == 'About Brand'" src="assets/video/brand.png">
+			<img *ngIf="row.category == 'TV commercials'" src="assets/video/tv.svg">
+			<img *ngIf="row.category == 'Product Information'" src="assets/video/product.svg">
+			<img *ngIf="row.category == 'Product Installation'" src="assets/video/service.svg">
+			<img *ngIf="row.category == 'Event'" src="assets/video/event.svg">
+			<span>{{row.category | translate}}</span>
+		</button>
+	</div>
+	
+	<div *ngIf="noRec" class="data-not">
+		<img  src="assets/imgs/no_found.svg">
+	</div>
+</ion-content>
+
+

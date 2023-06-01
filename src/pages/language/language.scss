@@ -1,0 +1,28 @@
+page-language {
+    ion-list
+    {
+        border-radius: 10px;
+        border: 1px solid #dedede;
+        overflow: hidden;
+        margin: 20px !important;
+        margin-top: 25px !important;
+        
+        ion-item
+        {
+            padding: 0px !important;
+            min-height: 55px !important;
+            
+            .item-inner
+            {
+                padding-left: 16px;
+                
+                ion-label
+                {
+                    margin: 0px;
+                }
+            }
+            
+           
+        }
+    }
+}

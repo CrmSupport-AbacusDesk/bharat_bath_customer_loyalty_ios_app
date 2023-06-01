@@ -1,0 +1,82 @@
+<!--
+  Generated template for the RetailerAddComplaintPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.k
+-->
+<ion-header class="main-header">
+  <ion-navbar>
+    <ion-title>{{ 'Add New Complaint' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <form #f="ngForm" (ngSubmit)="f.form.valid && submit()">
+    <div class="main-field">
+      <h3>{{ 'Basic information' | translate}}</h3>
+      
+      <div class="cs-form mb10">
+        <ion-list>
+          <ion-item class="cs-input" [ngClass]="{'error':f.submitted && first_name?.invalid}">
+            <ion-label floating> {{'Name' | translate}} <span>*</span></ion-label>
+            <ion-input type="text" name="first_name" #first_name="ngModel" [(ngModel)]="data.first_name" required></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input" [ngClass]="{'error':f.submitted && mobile_no?.invalid}" >
+            <ion-label floating> {{ 'Mobile No.' | translate }} <span>*</span></ion-label>
+            <ion-input type="tel" name="mobile_no" #mobile_no="ngModel" [(ngModel)]="data.mobile_no" required  (keypress)="MobileNumber($event)" maxlength="10" minlength="10"></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input" [ngClass]="{'error':(f.address && address?.invalid) || (f.submitted && !address.valid)}">
+            <ion-label floating>{{ 'Street' | translate }} <span>*</span></ion-label>
+            <ion-input type="text"  type="text"  name="address"  #address="ngModel" [(ngModel)]="data.address" required></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-select" [ngClass]="{'error':f.submitted && state?.invalid}">
+            <ion-label > {{ 'State' | translate}} <span>*</span></ion-label>
+            <ion-select name="state" [(ngModel)]="data.state" #state="ngModel" (ngModelChange)="getDistrictList(data.state)" required>
+              <ion-option *ngFor="let row of state_list" value="{{row.state_name}}">{{row.state_name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item class="cs-select" [ngClass]="{'error':f.submitted && district?.invalid}">
+            <ion-label > {{ 'District' | translate}} <span>*</span></ion-label>
+            <ion-select name="district"[(ngModel)]="data.district" #district="ngModel" required>
+              <ion-option *ngFor="let row of district_list" value="{{row.district_name}}">{{row.district_name}}</ion-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item class="cs-input" [ngClass]="{'error':f.submitted && city?.invalid}">
+            <ion-label floating> {{ 'City' | translate}} <span>*</span></ion-label>
+            <ion-input type="text" name="city" [(ngModel)]="data.city" #city="ngModel" required ></ion-input>
+          </ion-item>
+          
+          <ion-item class="cs-input mb32" [ngClass]="{'error':f.submitted && pincode?.invalid}">
+            <ion-label floating> {{ 'Pincode' | translate}} <span>*</span></ion-label>
+            <ion-input type="tel" name="pincode" [(ngModel)]="data.pincode" #pincode="ngModel" maxlength="6" minlength="6" (keypress)="MobileNumber($event)" required></ion-input>
+          </ion-item>
+
+          <ion-item class="cs-select mt0" [ngClass]="{'error':f.submitted && type?.invalid}">
+            <ion-label >{{ 'Type' | translate}} <span>*</span></ion-label>
+            <ion-select name="state" [(ngModel)]="data.type" #type="ngModel"  required>
+              <ion-option value="Service">Service</ion-option>
+              <ion-option value="Installation">Installations</ion-option>
+            </ion-select>
+          </ion-item>
+
+
+          <ion-item class="cs-input" [ngClass]="{'error':f.submitted && nature_problem?.invalid}">
+            <ion-label floating> {{ 'Nature Problem' | translate}} <span>*</span></ion-label>
+            <ion-input type="text" name="nature_problem" [(ngModel)]="data.nature_problem" #nature_problem="ngModel" required></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+      
+      <button ion-button class="cs-btn">
+        {{'Submit' | translate }}
+      </button>
+    </div>
+    
+  </form>
+  <div class="h100">&nbsp;</div>
+</ion-content>

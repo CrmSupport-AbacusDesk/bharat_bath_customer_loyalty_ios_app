@@ -1,0 +1,85 @@
+<ion-header class="main-header remove">
+	<ion-navbar>
+		<ion-title>{{offer_detail.title| titlecase}}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-refresher (ionRefresh)="doRefresh($event)">
+		<ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+		</ion-refresher-content>
+	</ion-refresher>
+	
+	
+	<div class="offer-secation">
+		<img src="{{url+offer_detail.offer_banner}}">
+		
+	</div>
+	
+	<div class="offer-content">
+		<h4>{{offer_detail.title | titlecase}}</h4>
+		<p>
+			{{ 'Valid Upto' | translate }}:{{offer_detail.end_date | date:'d MMMM y'}} 
+			<!-- <a (click)="goOntermsPage(offer_detail.id,'term')">{{ 'Terms & Condition' | translate}}</a> -->
+		</p>
+	</div>
+
+
+	<div class="gift-column">
+		<div class="gift-list" *ngFor="let list of gift_list;let i=index" (click)="goOnGiftDetail(list.id)">
+			<div class="gift-img">
+				<img src="{{url+list.image}}">
+			</div>
+			<div class="gift-content">
+				<h2>{{list.gift_title | titlecase}}</h2>
+				<p>{{list.coupon_points}} <span>{{'Points' | translate}}</span></p>
+				<a>{{ 'Redeem' | translate}} <i class="material-icons" *ngIf="toInt(list.coupon_points) <= total_balance">verified_user</i></a>
+			</div>
+		</div>
+	</div>
+
+	<div class="des-box" *ngIf="offer_detail.description">
+		<h6>{{'Description' | translate}}</h6>
+		<div class="box">
+			<div [innerHTML]="offer_detail.description"></div>
+		</div>
+	</div>
+
+
+
+	<div class="des-box pt10" *ngIf="offer_detail.terms">
+		<h6>{{'Terms & Conditions' | translate}}</h6>
+		<div class="box">
+			<div [innerHTML]="offer_detail.terms"></div>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	<!-- <div class="listings main-margin-16 mt0">
+		
+		<div class="terms pb16">
+			<a  style="white-space: nowrap;"></a>
+			<a (click)="goOntermsPage(offer_detail.id,'description')" style="white-space: nowrap;">{{ 'Description' | translate}}</a>
+		</div>
+		<button ion-item *ngFor="let list of gift_list;let i=index" (click)="goOnGiftDetail(list.id)">
+			<div class="head-detail">
+				<div class="head">
+					<h1> </h1>
+					<p id="redeem-points"></p>
+					<a *ngIf="toInt(list.coupon_points) <= total_balance"><i class="material-icons" >verified_user</i></a>
+				</div>
+				<div class="detail">
+					<h1></h1>
+				</div>
+			</div>  
+			<div class="product-img">
+			</div>
+		</button>
+		
+		
+	</div> -->
+	
+</ion-content>

@@ -1,0 +1,65 @@
+<!--
+  Generated template for the SparePartAddPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Add Sapre Part
+    </ion-title>
+    <ion-buttons start class="mr10">
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="light" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <form  (ngSubmit)="f.form.valid && submit() " #f="ngForm" >
+    <div class="form">
+      <ion-list no-lines>
+        <ion-item [ngClass]="{'error':f.submitted && conData1.spare_part_id?.invalid}">
+          <ion-label floating>{{'Sapre Part' | translate}} <span>*</span></ion-label>
+          <ion-select name="spare_part_id"  [(ngModel)]="conData1.spare_part_id"  required (ionChange)="getSparepartName($event)">
+            <ion-option  *ngFor="let val of spare" value={{val.id}}>{{val.product_name}} </ion-option>
+          </ion-select>
+        </ion-item>
+        
+        <ion-item class="cs-input" >
+          <ion-label floating>{{ 'Quantity' | translate }} <span>*</span></ion-label>
+          <ion-input type="tel"   [(ngModel)]="conData1.qty" name="qty" #qty="ngModel" autocomplete="off" autocorrect="off"  min="0" maxlength="3" minlength="3"  required></ion-input>
+        </ion-item>
+        <!-- !conData1.size_id || -->
+        <button class="mt15" type="text" ion-button full color="secondary"  [disabled]="!conData1.spare_part_id ||  !conData1.qty " (click)="addItem()" >{{'Add To List' | translate}}</button>
+        
+      </ion-list>
+      
+      
+      <div class="card-list">
+        <div class="card-item" *ngFor="let row of spareData; let i = index">
+          <div class="data-content">
+            <p><strong>Spare Part: </strong>{{row.spare_part_name}}</p>
+            <div class="item-flex">
+              <!-- <p><strong>Size / Thickness: </strong>{{row.size}} / {{row.thickness}} </p> -->
+              <p><strong>Quantity: </strong> {{row.qty}}</p>
+            </div>
+          </div>
+          <div class="data-action">
+            <a ion-fab mini color="red" (click)="deleteItem(i)"><ion-icon name="trash"></ion-icon></a>
+          </div>
+        </div>
+        
+      </div>
+      
+    </div>
+    <div class="pt16 pb16 pl16 pr16">
+      <button type="submit" (click)="submit()" ion-button full>{{ 'Save' | translate }}</button>
+    </div>
+  </form>
+  
+</ion-content>

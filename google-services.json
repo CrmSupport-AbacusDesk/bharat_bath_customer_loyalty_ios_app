@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "643423474252",
+    "firebase_url": "https://abacusdesk-api.firebaseio.com",
+    "project_id": "abacusdesk-api",
+    "storage_bucket": "abacusdesk-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:aa45740de8d1e8cea1dae9",
+        "android_client_info": {
+          "package_name": "com.bharatbathroom.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:643423474252:android:953916f24502b25ca1dae9",
+        "android_client_info": {
+          "package_name": "com.bharatbathroom.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6a82EIPW3fm7Qx650B-tp0Lh0Z0tOnUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "643423474252-ao5e2vc8srttpo3ceinhtpvs35t15ug3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "643423474252-5eomicbisae2ia63riar42fd26gqm0du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.variations.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  
+  ],
+  "configuration_version": "1"
+}

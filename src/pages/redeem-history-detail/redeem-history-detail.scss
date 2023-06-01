@@ -1,0 +1,65 @@
+page-redeem-history-detail {
+    
+    button{
+        text-transform: capitalize !important;
+        font-weight: bold !important;
+        letter-spacing: 1px;
+        border-radius: 8px !important;
+    }
+    
+    
+    .cs-box-modal{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.2);
+        width: 100%;
+        padding: 0px 16px;
+        transform: scale(0);
+        visibility: hidden;
+        transition: 0.5s;
+        
+        
+        .modal-body {
+            width: 100%;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 6px #cecece;
+            
+            
+            p{
+                margin: -10px -10px 16px -10px  !important;
+                padding: 10px;
+                background: #83b735;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                font-size: 16px;
+                color: #fff;
+            }
+            
+            .footer-btn{
+                text-align: right;
+                padding-top: 16px;
+                
+                button, a{
+                    text-transform: capitalize !important;
+                    border-radius: 6px;
+                }
+            }
+        }
+        
+        &.on{
+            transform: scale(1);
+            visibility: visible;
+        }
+    }
+    
+    .input-section .input-adjust textarea{
+        margin: 0px !important;
+    }
+}

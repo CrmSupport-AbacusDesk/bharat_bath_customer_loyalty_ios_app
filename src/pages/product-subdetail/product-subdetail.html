@@ -1,0 +1,82 @@
+<ion-header class="main-header remove">
+    <ion-navbar>
+        <ion-title>{{prod_detail.product_name}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content> 
+    <div class="pr16 pl16">
+        <div class="cs-column mt16 mb16">
+           
+            <ng-container >
+                <ion-slides *ngIf="productImg && productImg.length"   pager autoplay autoplay="5000" loop="true" speed="500">
+                    <ion-slide  *ngFor="let row of productImg">
+                        <button class="share" ion-button icon-only color="light" (click)="shareproduct(row.id)">
+                            <ion-icon name="md-share"></ion-icon>
+                        </button>
+                        <img src="{{url + row.actual_image_name}}">
+                    </ion-slide>
+                </ion-slides>
+            </ng-container>
+            
+            <!-- <ng-container *ngIf="productImg.length == 0">
+                <ion-slides  *ngIf="prod_detail.actual_image_name != ''">
+                    <ion-slide>
+                        <img src="{{url + prod_detail.actual_image_name}}">
+                    </ion-slide>
+                </ion-slides>
+            </ng-container> -->
+            
+            <div class="items">
+                <div class="name">
+                    <h2>{{prod_detail.product_name}}</h2>
+                    <p>{{prod_detail.material_code?prod_detail.material_code:'NA'}}</p>
+                </div>
+                
+                <span>₹​ {{prod_detail.price}}</span>
+            </div>
+        </div>
+        
+     
+
+
+        <div class="product-table mb10" *ngIf="prod_detail.desc">
+            <div [innerHTML]="prod_detail.desc"></div>
+        </div>
+        
+    </div>
+    
+    <ng-container *ngIf="randomProduct.length">
+        <h2 class="product_head">Related Products</h2>
+        <ion-scroll scrollX="true" scrollY="true"  style="height: 180px;">
+            <div class="horizontally">
+                <div class="hr-product" *ngFor="let row of randomProduct">
+                    <div class="sm-thumnail">
+                        <img src="{{url + row.actual_image_name}}">
+                    </div>
+                    <div class="info">
+                        <h2>{{row.product_name}}</h2>
+                        <p>{{row.material_code?row.material_code:'NA'}}</p>
+                        <button ion-button color="primary" round small (click)="getProductDetail(row.id); dbService.presentLoading();">View</button>
+                    </div>
+                </div>
+            </div>
+        </ion-scroll>
+    </ng-container>
+    
+    
+    <div class="video-link" *ngIf="prod_detail.video_link != ''">
+        <h2>Video Link :- <a href="{{prod_detail.video_link}}" target="_blank">{{prod_detail.video_link}}</a></h2>
+        <!-- <div  class="video" >
+            <iframe [src]="video_link" width="100%" height="180" rameborder="0" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            
+        </div> -->
+    </div>
+</ion-content>
+
+
+
+
+
+
+

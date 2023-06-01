@@ -1,0 +1,60 @@
+<!--
+  Generated template for the SurveyDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="main-header remove">
+  <ion-navbar>
+      <ion-title> 
+        {{surveyDetail.title}}
+      </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<div class="survey-count" *ngIf="!detail.length == 0">
+  <div *ngIf="detail.length == 0">
+    <p>{{ 'Data not Found' | translate}}</p>  
+  </div>
+  <div class="count-box">
+    <p>{{ 'Total' | translate}}</p>
+    <p>{{detail.length}}</p>
+  </div>
+  <div class="count-box">
+    <p>{{ 'Filled' | translate}}</p>
+    <p>{{questionCheckCount}}</p>
+  </div>
+  <div class="count-box">
+    <p>{{ 'Not Filled' | translate}}</p>
+    <p>{{detail.length-questionCheckCount}}</p>
+  </div>
+</div>
+
+<div class="survey-que">
+  <ul>
+    <li *ngFor="let list of detail;let i=index">
+      <h2>{{i+1}}. {{list.question}}</h2> 
+      <div *ngFor="let ans of list.answers;let i=index">
+        <ion-list radio-group [(ngModel)]="list.selected_answer" (ionChange)="checkcount()" class="mb0">
+          <ion-item>
+            <ion-label>{{ans.answer}}</ion-label>
+            <ion-radio  item-left   value={{ans.id}}  color="primary" class="mr5"></ion-radio>
+          </ion-item>
+        </ion-list>
+       </div>
+    </li>
+  </ul>
+</div>
+<div class="padding16" *ngIf="!detail.length == 0">
+  <button  ion-button class="cs-btn" (click)="surveySubmit()">
+     {{ 'Save' | translate }}
+     <!-- {{'Submit' | translate }} -->
+  </button>
+  <p>{{selected_answer}}</p>
+
+</div>
+
+<div class="h50">&nbsp;</div>
+</ion-content>
+

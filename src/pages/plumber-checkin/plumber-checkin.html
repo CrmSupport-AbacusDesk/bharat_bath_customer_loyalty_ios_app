@@ -1,0 +1,73 @@
+<!--
+  Generated template for the PlumberCheckinPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="main-header remove">
+  <ion-navbar>
+    <ion-title>{{ 'Checkin' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list class="bodr-botm" *ngIf="complaint_list.length">
+    <ion-item>
+      <ion-label>{{ 'Complaint' | translate }}</ion-label>
+      <ion-select name="complaint" [(ngModel)]="data.complaint" #complaint="ngModel" (ngModelChange)="getComplaintList(); goDetailPage()" >
+        <ion-option *ngFor="let row of complaint_list" value="{{row.complaintId}}">{{row.customerName}}  {{ 'COM' | translate }}# {{row.complaintId}} ({{row.complaint_type}})</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  
+  
+  <!-- <div class="padding10">
+        <div class="cs-list">
+          <div class="top-block">
+            <p>{{complaint_detail.customerName}} <span class="cs-badge">COM# {{complaint_detail.complaintId}}</span></p>
+            <div class="number-block">
+              <span>{{complaint_detail.customerMobileNo}}</span>
+              <a class="dialer" href="tel:{{complaint_detail.customerMobileNo}}"><ion-icon ios="ios-call" md="md-call"></ion-icon></a>
+            </div>
+          </div>
+          <div class="middle-block">
+            <div class="date-status">
+              <p><strong>Date:</strong>{{complaint_detail.compalintDate | date:'d MMMM y' }}</p>
+              <p><strong>Satus: </strong><span class="{{complaint_detail.status}}">{{complaint_detail.status}}</span> </p>
+            </div>
+            <p><strong>Nature Problem:</strong>{{complaint_detail.nature_problem}}</p>
+          </div>
+          <div class="botm-block">
+            <p><ion-icon name="navigate"></ion-icon>
+              {{complaint_detail.customerAddress}} {{complaint_detail.customerCity}} {{complaint_detail.customerDistrict}} - {{complaint_detail.customerPincode}} {{complaint_detail.customerState}}
+            </p>
+          </div>
+        </div>
+        <div class="group-btn padding0">
+          <button ion-button color="secondary" medium block round (click)="checkin(complaint_detail.complaintId)" *ngIf="checkin_time == true">
+            Start Checkin
+            <ion-icon name="clock" class="large-size"></ion-icon>
+          </button>
+          
+          <ng-container *ngIf="checkin_time == false">
+            <ion-item class="remark-block">
+              <ion-label stacked>Remark</ion-label>
+              <ion-textarea placeholder="Type Here..." name="remark" [(ngModel)]="data.remark" #remark="ngModel"></ion-textarea>
+            </ion-item>
+            <button ion-button color="red" medium block round (click)="checkOut(complaint_detail.complaintId, 'Closed')" class="mt15">
+              Stop Checkin 
+              <ion-icon name="clock" class="large-size"></ion-icon>
+            </button>
+          </ng-container>
+        </div>
+    
+    
+  </div> -->
+
+  <div *ngIf="!complaint_list.length" class="data-not">
+    <img  src="assets/imgs/no_found.svg">
+    <p>{{ 'No complaints exists' | translate }}</p>
+  </div>
+  
+</ion-content>

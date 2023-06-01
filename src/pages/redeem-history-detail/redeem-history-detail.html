@@ -1,0 +1,122 @@
+<!--
+  Generated template for the RedeemHistoryDetailPage page.
+  
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Redeem Detail</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+  
+  
+  <div class="card-outer">
+    <div class="history-card reverse" >
+      <div class="img-box">
+        <img src="{{url + data.image}}">
+      </div>
+      <div class="content-box">
+        <h6>{{data.gift_title | titlecase}}</h6>
+        <p><span>{{'Date' | translate}} : </span>{{data.date_created | date:'d MMM y'}}</p>
+        <p><span>{{'Req Id' | translate}} : </span> REQ# {{data.id}}</p>
+        <p><span>{{'Status' | translate}}</span> : <span class="status {{data.gift_status}}">{{data.gift_status}}</span></p>
+        <h5>{{data.coupon_points}} <span>{{ 'Points' | translate}}</span></h5>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="card-outer" *ngIf="data.type == 'Gift'">
+    <table>
+      <tr *ngIf="data.receive_status != ''">
+        <td class="w130">Gift Status</td>
+        <td><strong class="{{data.receive_status}}">{{data.receive_status}}</strong></td>
+      </tr>
+      <tr *ngIf="data.receive_status != ''">
+        <td>Shipped Type</td>
+        <td>{{data.shipped_type}}</td>
+      </tr>
+      <tr *ngIf="data.receive_status != ''">
+        <td>Estimated Date</td>
+        <td>{{data.estimated_date | date:'d MMMM y'}}</td>
+      </tr>
+      <tr *ngIf="data.receive_status != ''">
+        <td>Shipping Description</td>
+        <td>{{data.shipping_information}}</td>
+      </tr>
+      <tr>
+        <td>Shipping Address</td>
+        <td>{{data.shipping_address}}</td>
+      </tr>
+      <tr *ngIf="data.remark != ''">
+        <td>Recieved Remark</td>
+        <td>{{data.remark}}</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="card-outer" *ngIf="data.type == 'Cash'">
+    <table>
+      <tr *ngIf="data.receive_status != ''">
+        <td class="w130">Status</td>
+        <td><strong class="{{data.receive_status}}">{{data.receive_status}}</strong></td>
+      </tr>
+      <tr *ngIf="data.received_date != '0000-00-00'">
+        <td>Transfer Date</td>
+        <td>{{data.received_date | date:'d MMMM y'}}</td>
+      </tr>
+      <tr *ngIf="data.paytm_mobile != '' && data.payment_type == 'paytm'">
+        <td>Paytm number</td>
+        <td>{{data.paytm_mobile}}</td>
+      </tr>
+      <tr *ngIf="data.account_holder_name != '' && data.payment_type == 'bank'">
+        <td>Account Holder Name</td>
+        <td>{{data.account_holder_name | titlecase}}</td>
+      </tr>
+      <tr *ngIf="data.bank_name != '' && data.payment_type == 'bank'">
+        <td>Bank Name</td>
+        <td>{{data.bank_name | titlecase}}</td>
+      </tr>
+      <tr *ngIf="data.bank_account_number != '' && data.payment_type == 'bank'">
+        <td>Account Number</td>
+        <td>{{data.bank_account_number}}</td>
+      </tr>
+      <tr *ngIf="data.bank_ifsc_code != '' && data.payment_type == 'bank'">
+        <td>IFSC Code</td>
+        <td>{{data.bank_ifsc_code}}</td>
+      </tr>
+      
+      <tr *ngIf="data.remark != ''">
+        <td>Recieved Remark</td>
+        <td>{{data.remark}}</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="text-right" *ngIf="data.receive_status == 'Transfered' || data.receive_status == 'Shipped'">
+    <button ion-button color="primary" (click)="toggle = !toggle;">Mark as Recieved</button>
+  </div>
+  
+  
+  <div class="cs-box-modal"  [ngClass] ="{'on' : toggle == true}">
+    <div class="modal-body">
+      <p>Receiving Remark</p>
+      <div class="input-section">
+        <div class="input-adjust m0">
+          <textarea class="radius-none" type="text" placeholder="Enter Remark" name="receiving_remark"  #receiving_remark="ngModel" [(ngModel)]="data.receiving_remark"  required></textarea>
+        </div>
+      </div>
+      
+      <div class="footer-btn">
+        <a ion-button outline class="mr10" color="red" (click)="toggle = !toggle">Cancel</a>	
+        <button ion-button color="primary" [disabled]="!data.receiving_remark" (click)="submit()">Save</button>
+      </div>	
+    </div>
+  </div>
+  
+  
+</ion-content>

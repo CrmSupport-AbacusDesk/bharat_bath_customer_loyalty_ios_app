@@ -1,0 +1,235 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{ 'Cancellations Policy' | translate }}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="backdrop-modal">
+        <div class="in-modal form">
+            <form #f="ngForm" (ngSubmit)="f.form.valid && submit()">
+                <h1>{{ 'BIUT' | translate}}</h1>
+                <p>{{ 'Are you sure to redeem your' | translate }} {{gift_detail.coupon_points}} {{ 'Points' | translate}}?</p>
+                <p>{{ 'Enter your 6 digit number that sent to' | translate}} <span class="blue-color lineh24">+91 {{karigar_detail.mobile_no}}</span></p>
+                
+                <ion-list no-lines class="mb0">
+                    <ion-item [ngClass]="{'error':f.submitted && otp?.invalid}">
+                        <ion-label floating>{{ 'OTP' | translate }} <span>*</span></ion-label>
+                        <ion-input type="text"  type="text"  name="otp"   #otp="ngModel" [(ngModel)]="data.otp" (ngModelChange)="otpvalidation()" required></ion-input>
+                    </ion-item>
+                    <div class="eror" *ngIf="f.submitted && otp?.invalid">
+                        <p> {{ 'This field is required' | translate}}</p>
+                    </div>
+                    <div class="eror" *ngIf="!otp_value && otp?.touched">
+                        <p>{{ 'Wrong OTP value' | translate}}</p>
+                    </div>
+                    <div class="resend">
+                        <a (click)="resendOtp()">{{ 'Resend' | translate}}</a>
+                    </div>
+                </ion-list>
+                
+                <ng-container *ngIf="redeemReqType == 'Cash'">
+                    <ion-list no-lines>
+                        <ion-item [ngClass]="{'error':f.submitted && redeemType?.invalid}">
+                            <ion-label floating>{{ 'Payment Type' | translate }} <span>*</span></ion-label>
+                            <ion-select name="redeemType" [(ngModel)]="data.redeemType" #redeemType="ngModel" [okText]="'OK' | translate" [cancelText]="'Cancel' | translate" (ngModelChange)="optionsFn(data.redeemType)"  required>
+                                <ion-option  value="bank">{{'Bank' | translate}}</ion-option>
+                                <ion-option  value="paytm">{{ 'Paytm' | translate}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && redeemType?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        
+                        <ng-container *ngIf="data.redeemType == 'paytm'">
+                            <div class="check-bx">
+                                <ion-item>
+                                    <ion-checkbox color="secondary" checked="true" name="check1" #check1="ngModel" [(ngModel)]="data.check1" (click)="myNumber()">
+                                    </ion-checkbox>
+                                </ion-item>
+                                <p>{{'Same as login number' | translate}}</p>
+                            </div>
+                            
+                            <ion-item [ngClass]="{'error':f.submitted && paytm_mobile?.invalid}">
+                                <ion-label floating>{{'Paytm Mobile Number' | translate}}</ion-label>
+                                <ion-input type="tel"  name="paytm_mobile " #paytm_mobile ="ngModel"  pattern="^[6-9][0-9]{0,9}$" [(ngModel)]="data.paytm_mobile" minlength="10" maxlength="10" required></ion-input>
+                       
+                                <div class="eror" *ngIf="f.submitted && paytm_mobile?.invalid">
+                                    <p> {{ 'This field is required' | translate}}</p>
+                                </div>
+                                <div class="eror" *ngIf="paytm_mobile.errors?.pattern">
+                                    <p> {{ 'Invalid mobile no.' | translate}}</p>
+                                </div>
+                            </ion-item>
+                        </ng-container>
+
+                        <ng-container *ngIf="this.data.redeemType === 'bank'">
+
+                            <div class="check-bx" *ngIf="karigar_detail.bank_name && karigar_detail.account_no && karigar_detail.ifsc_code && karigar_detail.account_holder_name">
+                                <ion-item>
+                                    <ion-checkbox color="secondary" checked="true" name="check2" #check1="ngModel" [(ngModel)]="data.check2" (click)="bankCheck()">
+                                    </ion-checkbox>
+                                </ion-item>
+                                <p>{{'Same as my profile bank details' | translate}}</p>
+                            </div>
+    
+                            <ion-item [ngClass]="{'error':f.submitted && account_holder_name?.invalid}">
+                                <ion-label floating>{{ 'Account Holder Name' | translate }} <span>*</span></ion-label>
+                                <ion-input type="text"  name="account_holder_name"   #account_holder_name="ngModel" [(ngModel)]="data.account_holder_name" required></ion-input>
+                            </ion-item>
+    
+                            <div class="eror" *ngIf="f.submitted && account_holder_name?.invalid">
+                                <p> {{ 'This field is required' | translate}}</p>
+                            </div>
+                            
+                            <ion-item [ngClass]="{'error':f.submitted && bank_name?.invalid}">
+                                <ion-label floating>{{ 'Bank Name' | translate }} <span>*</span></ion-label>
+                                <ion-input  type="text"  name="bank_name"   #bank_name="ngModel" [(ngModel)]="data.bank_name" required></ion-input>
+                            </ion-item>
+                            
+                            <div class="eror" *ngIf="f.submitted && bank_name?.invalid">
+                                <p> {{ 'This field is required' | translate}}</p>
+                            </div>
+    
+                            <ion-item [ngClass]="{'error':f.submitted && account_no?.invalid}">
+                                <ion-label floating>{{ 'Account Number' | translate }} <span>*</span></ion-label>
+                                <ion-input type="text"  name="account_no"   #account_no="ngModel" [(ngModel)]="data.account_no" required></ion-input>
+                            </ion-item>
+                            <div class="eror" *ngIf="f.submitted && account_no?.invalid">
+                                <p> {{ 'This field is required' | translate}}</p>
+                            </div>
+                            
+                            <ion-item [ngClass]="{'error':f.submitted && ifsc_code?.invalid}">
+                                <ion-label floating>{{ 'IFSC Code' | translate }} <span>*</span></ion-label>
+                                <ion-input  type="text"  name="ifsc_code"   #ifsc_code="ngModel" [(ngModel)]="data.ifsc_code" pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" required></ion-input>
+                            </ion-item>
+    
+                            <div class="eror" *ngIf="f.submitted && ifsc_code?.invalid">
+                                <p> {{ 'This field is required' | translate}}</p>
+                            </div>
+    
+                            <div class="eror" *ngIf="ifsc_code.errors?.pattern">
+                                <p> {{ 'Invalid IFSC code.' | translate}}</p>
+                            </div>
+                        </ng-container>
+                    </ion-list>
+                    
+                    
+                    
+                    
+                    <!-- <ng-container *ngIf="this.data.redeemType === 'paytm'">
+                        <div class="adhar" *ngIf="karigar_detail.paytm_mobile_number">
+                            <table>
+                                <tr>
+                                    <th>{{'Paytm Number' | translate}}</th>
+                                    <td>{{karigar_detail.paytm_mobile_number ? karigar_detail.paytm_mobile_number:'N/A'}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <ng-container *ngIf="karigar_detail.paytm_mobile_number == ''">
+                            <div class="adhar alert-card">
+                                
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <p>{{'Sorry you can not send redeem request. Paytm Number is Missing Please update your paytm number' | translate}}</p>
+                                            <a ion-button small (click)="updateProfile()">{{'Update detail' | translate}}</a>
+                                        </td>
+                                    </tr>
+                                    
+                                </table>
+                            </div>
+                        </ng-container> 
+                    </ng-container>   -->
+                </ng-container>
+                
+                <ng-container *ngIf="redeemReqType == 'Gift'">
+                    <h3>{{'Shipping Address' | translate}}</h3>
+                    
+                    <ion-list no-lines>
+                        <ion-item [ngClass]="{'error':f.submitted && address?.invalid}">
+                            <ion-label floating>{{ 'Select Address Type' | translate }} <span>*</span></ion-label>
+                            <ion-select name="addressType" [(ngModel)]="data.addressType" #addressType="ngModel" [okText]="'OK' | translate" [cancelText]="'Cancel' | translate" (ngModelChange)="checkAddree(data.addressType)"  required>
+                                <ion-option  value="same"  >{{'Same as address' | translate}}</ion-option>
+                                <ion-option  value="new">{{ 'New Address' | translate}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && address?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                    </ion-list>
+                    
+                    <ion-list no-lines *ngIf="data.addressType == 'same'">
+                        <ion-item [ngClass]="{'error':(f.shipping_address && shipping_address?.invalid) || (f.submitted && !shipping_address.valid)}">
+                            <ion-label floating>{{ 'Address' | translate }} <span>*</span></ion-label>
+                            <ion-textarea class="h60" type="text" name="shipping_address"  #shipping_address="ngModel" [(ngModel)]="data.shipping_address" required></ion-textarea>
+                        </ion-item>
+                    </ion-list>
+                    
+                    <ion-list no-lines *ngIf="data.addressType == 'new'">
+                        <ion-item [ngClass]="{'error':(f.address && address?.invalid) || (f.submitted && !address.valid)}">
+                            <ion-label floating>{{ 'Street' | translate }} <span>*</span></ion-label>
+                            <ion-textarea class="h60" type="text" name="address"  #address="ngModel" [(ngModel)]="data.address" required></ion-textarea>
+                        </ion-item>
+                        
+                        <div class="eror" *ngIf="f.submitted && address?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        <ion-item  [ngClass]="{'error':f.submitted && pincode?.invalid}">
+                            <ion-label floating>{{ 'Pincode' | translate}} <span>*</span></ion-label>
+                            <ion-input type="tel" name="pincode" [(ngModel)]="data.pincode" #pincode="ngModel" maxlength="6" minlength="6" (input)="getaddress(data.pincode)" required></ion-input>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && pincode?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        <ion-item [ngClass]="{'error':f.submitted && state?.invalid}">
+                            <ion-label floating>{{ 'State' | translate }} <span>*</span></ion-label>
+                            <ion-select name="state" [okText]="'OK' | translate" [cancelText]="'Cancel' | translate"  [(ngModel)]="data.state" #state="ngModel" (ngModelChange)="getDistrictList(data.state)" required>
+                                <ion-option *ngFor="let row of state_list" value="{{row.state_name}}">{{row.state_name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && state?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        
+                        <ion-item [ngClass]="{'error':f.submitted && district?.invalid}">
+                            <ion-label floating>{{ 'District' | translate }} <span>*</span></ion-label>
+                            <ion-select name="district" [okText]="'OK' | translate" [cancelText]="'Cancel' | translate" [(ngModel)]="data.district" #district="ngModel" required>
+                                <ion-option *ngFor="let row of district_list" value="{{row.district_name}}">{{row.district_name}}</ion-option>
+                            </ion-select>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && district?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        
+                        <ion-item [ngClass]="{'error':f.submitted && city?.invalid}">
+                            <ion-label floating >{{ 'City' | translate }} <span>*</span></ion-label>
+                            <ion-input type="text" name="city" [(ngModel)]="data.city" #city="ngModel" required ></ion-input>
+                        </ion-item>
+                        <div class="eror" *ngIf="f.submitted && city?.invalid">
+                            <p> {{ 'This field is required' | translate}}</p>
+                        </div>
+                        
+                        
+                    </ion-list>
+                </ng-container>
+                
+                
+                <div class="check-bx">
+                    <ion-item>
+                        <ion-checkbox color="secondary" checked="true" name="check" #check="ngModel" [(ngModel)]="data.check" required></ion-checkbox>
+                    </ion-item>
+                    <p>{{ 'I have read' | translate }} <a (click)="goOnCancelationPolicy()">{{ 'Cancellations Policy' | translate}}</a></p>
+                </div>
+                
+                <div class="btn-align">
+                    <a  ion-button outline color="red" round (click)="dismiss()">{{ 'No' | translate }}</a>
+                    
+                    <button  ion-button color="primary" round  [disabled]="!otp_value">{{ 'Yes' | translate }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    
+</ion-content>

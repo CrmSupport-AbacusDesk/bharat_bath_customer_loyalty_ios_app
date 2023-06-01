@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'Dealer' | translate}}</ion-title>        
+    </ion-navbar>    
+    <ion-toolbar color="primary">
+        <div class="search add-search">
+            <div class="filter">
+                <ion-searchbar [(ngModel)]="filter.search"  #search="ngModel" name="search"  (ngModelChange)="getDealer()"></ion-searchbar>
+            </div>
+        </div>
+    </ion-toolbar> 
+</ion-header>
+
+<ion-content>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
+
+
+<div class="main-history">
+    <div class="cs-list" *ngFor="let row of dealerData; let i=index">
+        <div class="top-block">
+            <p>{{row.firm_name ? row.firm_name : 'N/A'}}</p>
+        </div>
+        <div class="middle-block">
+            <div class="date-status pb0">
+                <p><strong>{{'Address' | translate}} : </strong>{{row.dealer_address}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!dealerData.length" class="data-not">
+    <img  src="assets/imgs/no_found.svg">
+  </div>
+
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+</ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</ion-content>

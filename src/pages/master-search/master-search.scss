@@ -1,0 +1,38 @@
+page-master-search {
+
+    .global_search{
+        padding: 16px;
+        padding-top: 7px;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        background-color: white;
+        margin: 0 auto;
+        overflow: auto;
+        width: 100%;
+        top: 45px;
+        
+        
+        p{
+            font-size: 14px;
+            line-height: 22px;
+            line-height: 24px;
+            margin-bottom: 10px !important;
+        }
+    }
+    .value_css{
+        padding-bottom: 10px!important; 
+        color: grey;
+        
+    }
+    .not_found{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        // height: 100%;
+        padding-top: 30px;
+    }
+    .global_search1{
+        display: none !important;
+    }
+
+}

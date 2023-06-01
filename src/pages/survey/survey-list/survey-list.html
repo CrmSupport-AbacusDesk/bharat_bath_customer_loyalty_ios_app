@@ -1,0 +1,37 @@
+<!--
+  Generated template for the SurveyListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header class="main-header remove">
+  <ion-navbar>
+      <ion-title>{{ 'Survey' | translate }}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+</ion-content>
+
+<ion-content padding>
+<div *ngIf="!surveyList.length == 0">
+  <ion-card  *ngFor="let list of surveyList">
+    <ion-card-header (click)=" Slist(list.id)">
+      {{list.title}}
+      <ion-icon name="arrow-forward"></ion-icon>
+    </ion-card-header>
+  </ion-card>
+</div>
+<div *ngIf="!surveyList.length" class="data-not">
+  <img src="assets/imgs/no_found.svg">
+</div>
+</ion-content>

@@ -1,0 +1,127 @@
+<ion-header class="main-header remove">
+    <ion-navbar>
+        <ion-title>{{ 'My Complaints' | translate }}</ion-title>
+    </ion-navbar>
+    
+    <!-- *ngIf="complaint_count!='0'" -->
+    <!-- <ion-toolbar>
+        <div class="serach-filter">
+            <ion-list>
+                <ion-item>
+                    <ion-input placeholder="{{ 'Search' | translate }}" type="text" name='search'  [(ngModel)]="filter.search" (ngModelChange)="getComplaintlist()"></ion-input>
+                    <ion-select name="status" [(ngModel)]="filter.status"  [okText]="'OK' | translate" [cancelText]="'Cancel' | translate" (ngModelChange)="getComplaintlist(data.type)">
+                        <ion-option value="">{{ 'All' | translate }}</ion-option>
+                        <ion-option value="Pending">{{ 'Pending' | translate }}</ion-option>
+                        <ion-option value="Closed">{{ 'Closed' | translate }}</ion-option>
+                        <ion-option value="Cancel">{{ 'Cancel' | translate }}</ion-option>
+                    </ion-select>
+                </ion-item>
+            </ion-list>
+            
+        </div>
+    </ion-toolbar> -->
+    
+    
+    <ion-toolbar color="white">
+        <div class="ion-tab-btn">
+            <ion-segment [(ngModel)]="complaint">
+                <ion-segment-button value=""  (click) ="getComplaintlist('', '')">
+                    All
+                </ion-segment-button>
+                <ion-segment-button value="Pending" (click) ="getComplaintlist('', complaint )">
+                    Pending
+                </ion-segment-button>
+                <ion-segment-button value="Closed" (click) ="getComplaintlist('', complaint)">
+                    Closed
+                </ion-segment-button>
+                <ion-segment-button value="Cancel" (click) ="getComplaintlist('', complaint)">
+                    Cancel
+                </ion-segment-button>
+            </ion-segment>
+        </div>
+    </ion-toolbar>
+    
+</ion-header>
+
+<ion-content>
+    
+    
+    
+    <div *ngIf="!complaint_list.length" class="data-not">
+        <img  src="assets/imgs/no_found.svg">
+    </div>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content  pullingIcon="arrow-dropdown"
+        pullingText="Pull to refresh"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+    </ion-refresher-content>
+</ion-refresher>
+
+<!-- <div *ngIf="complaint_list.length" class="main-div"> 
+    <div class="plumber-cam" >
+        <div class="box"  *ngFor="let val of complaint_list; let i=index">
+            <span class="alphabet">{{val.customerName ? val.customerName[0].toUpperCase():'' }} </span>
+            <div class="title">
+                <h4 (click)="plumberDetail(val.id)"> {{val.customerName | titlecase}}</h4>
+                <p (click)="plumberDetail(val.id)">{{val.customerMobileNo}}</p>
+                <a class="phone-call" href="tel:{{val.customerMobileNo}}"><i class="material-icons">call</i></a>
+            </div> 
+            <div class="add mt15" (click)="plumberDetail(val.id)">
+                <div class="com">
+                    <h3>{{ 'Address' | translate }}</h3>
+                    <p>{{'COM' | translate}}#{{val.id}}</p>
+                </div>
+                
+                <p>{{val.address | titlecase}} {{val.city | titlecase}} {{val.district | titlecase}} {{val.state | titlecase}} {{val.pincode}}</p>
+            </div>
+            
+            <div class="pro-12" (click)="plumberDetail(val.id)">
+                <h4>{{ 'Nature Problem' | translate }} :</h4>
+                <p>{{val.nature_problem | titlecase}}</p>
+            </div>
+            <div class="pro-12" (click)="plumberDetail(val.id)">
+                <h4>{{ 'Status' | translate}} :</h4>
+                <p class="{{val.status}}">{{val.status | titlecase}}</p>
+            </div>
+        </div>
+    </div>
+
+
+</div> -->
+
+
+<div class="main-history" *ngIf="complaint_list.length">
+    <div class="cs-list" *ngFor="let val of complaint_list; let i=index">
+        <div class="top-block">
+            <p>{{val.customerName | titlecase}} <span class="cs-badge">COM#{{val.id}}</span></p>
+            <div class="number-block">
+                <span>{{val.customerMobileNo}}</span>
+                <a class="dialer" href="tel:{{val.customerMobileNo}}"><ion-icon ios="ios-call" md="md-call"></ion-icon></a>
+            </div>
+        </div>
+        <div class="middle-block" (click)="plumberDetail(val.id)">
+            <div class="date-status">
+                <p><strong>{{ 'Date' | translate }}:</strong>{{val.date_created | date:'d MMMM y' }}</p>
+                <p><strong>{{'Satus' | translate}}: </strong><span class="{{val.status}}">{{val.status | titlecase}}</span> </p>
+            </div>
+            <p><strong>{{ 'Complaint Remark' | translate }}:</strong> {{val.nature_problem}}</p>
+        </div>
+        <div class="top-block footer-block" (click)="plumberDetail(val.id)">
+                <p><span>{{ 'Address' | translate}}:</span> {{val.address | titlecase}} {{val.city | titlecase}} {{val.district | titlecase}} {{val.state | titlecase}} {{val.pincode}}</p>
+        </div>
+    </div>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)"  *ngIf="flag!=1">
+        <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+</div>
+
+
+
+</ion-content>
+

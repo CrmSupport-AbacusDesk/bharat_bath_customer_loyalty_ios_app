@@ -1,0 +1,224 @@
+<ion-header class=" remove">
+	<ion-navbar >
+		<ion-title> {{ 'Profile' | translate}} </ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only (click)="changeLanguage()">
+				<i class="material-icons" style="color: #fff;">g_translate</i>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content *ngIf="dbService.userStorageData.type == 'Plumber'" class="profile-bg">
+	<div class="profile-container">
+		<div class="background-white hero"></div>
+		<div class="user-profile">
+			<div class="dp">
+				<div class="dp-hidden">
+					<img [src]="karigar_detail.profile?karigar_detail.profile:'assets/imgs/profile.jpg'" (click) = "karigar_detail.profile?viewProfiePic():''" >
+				</div>
+				<a class="cmra-btn"><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a>
+			</div>
+			<h2>{{karigar_detail.first_name |titlecase}}</h2>
+			<h6>{{karigar_detail.type}}</h6>
+			<ng-container *ngIf="dbService.userStorageData.type == 'Plumber'">
+				<p class="{{karigar_detail.status}}">
+					{{karigar_detail.status}}
+					<i class="material-icons Verified " *ngIf="karigar_detail.status =='Verified'">check_circle </i>
+					<i class="material-icons Pending " *ngIf="karigar_detail.status =='Pending'">hourglass_full</i>
+					<i class="material-icons Suspect " *ngIf="karigar_detail.status =='Suspect'">info</i>
+					<i class="material-icons Reject " *ngIf="karigar_detail.status =='Reject'">cancel</i>
+				</p>
+			</ng-container>
+			
+			<button class="edit" (click)="editProfilePage()"> <i class="material-icons">edit</i></button>
+			
+		</div>
+		
+		
+		<div class="padding16">
+			<div class="profile-card">
+				<div class="text-box">
+					<p>{{ 'Profile Status' | translate }} : <strong>{{karigar_detail.profile_completed}}% Completed</strong></p>
+					<div class="progress">
+						<div class="in-progress {{'wp' + karigar_detail.profile_completed}}"></div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="profile-card">
+				<div class="text-box">
+					<p>{{ 'Mobile No.' | translate }}</p>
+					<h6>{{karigar_detail.mobile_no}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{ 'Date of Birth' | translate}}</p>
+					<h6>{{(karigar_detail.dob !='') ? (karigar_detail.dob| date:'d MMM,y'):('----')}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{ 'Working Address' | translate}}</p>
+					<h6>{{karigar_detail.address |titlecase}} {{karigar_detail.state |titlecase}} {{karigar_detail.district |titlecase}} {{karigar_detail.city |titlecase}} {{karigar_detail.pincode }}</h6>
+				</div>
+				<div class="text-box" *ngIf="karigar_detail.permanent_address">
+					<p>{{ 'Permanent Address' | translate }}</p>
+					<h6>{{karigar_detail.permanent_address |titlecase}} {{karigar_detail.permanent_state |titlecase}} {{karigar_detail.parmanent_district |titlecase}}  {{karigar_detail.permanent_city |titlecase}} {{karigar_detail.permanent_pincode }}</h6>
+				</div>
+			</div>
+			<div class="profile-card" *ngIf="dbService.userStorageData.type == 'Plumber'">
+				<div class="text-center">
+					<h2>{{ 'Dealer Information' | translate }}</h2>
+				</div>
+				<div class="text-box">
+					<p>Name</p>
+					<h6>{{karigar_detail.dealer_contact_person | titlecase}} </h6>
+				</div>
+				<div class="text-box">
+					<p>Mobile Number</p>
+					<h6>{{karigar_detail.dealer_mobile}}</h6>
+				</div>
+				<div class="text-box">
+					<p>Shop Name</p>
+					<h6>{{karigar_detail.firm_name}}</h6>
+				</div>
+			</div>
+			
+			<div class="profile-card"  *ngIf="karigar_detail.document_image && karigar_detail.document_type && karigar_detail.document_no">
+				<div class="text-center">
+					<h2>{{ 'Document Information' | translate }}</h2>
+				</div>
+				<div class="text-box">
+					<div class="doc-box">
+						<img [src]="karigar_detail.document_image">
+					</div>
+				</div>
+				<div class="text-box">
+					<p>{{karigar_detail.document_type}}</p>
+					<h6>{{karigar_detail.document_no}}</h6>
+				</div>
+			</div>
+			
+			<div class="profile-card" *ngIf="dbService.userStorageData.type == 'Plumber'">
+				<div class="text-center">
+					<h2>{{ 'Bank Information' | translate }}</h2>
+				</div>
+				<div class="text-box">
+					<p>{{'Account Holder Name' | translate}}</p>
+					<h6>{{karigar_detail.account_holder_name ? karigar_detail.account_holder_name:'N/A'}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{'Bank Name' | translate}}</p>
+					<h6>{{karigar_detail.bank_name ? karigar_detail.bank_name:'N/A'}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{'Bank Account Number' | translate}}</p>
+					<h6>{{karigar_detail.account_no ? karigar_detail.account_no:'N/A'}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{'Bank IFSC Code' | translate}}</p>
+					<h6>{{karigar_detail.ifsc_code ? karigar_detail.ifsc_code:'N/A'}}</h6>
+				</div>
+				<div class="text-box">
+					<p>{{'Paytm Number' | translate}}</p>
+					<h6>{{karigar_detail.paytm_mobile_number ? karigar_detail.paytm_mobile_number:'N/A'}}</h6>
+				</div>
+			</div>
+			
+			<div class="profile-card" *ngIf="dbService.userStorageData.type == 'Plumber'">
+				<div class="text-center">
+					<h2>{{ 'Referral Code Information' | translate }}</h2>
+					<a class="share" (click)="ShareApp()"><i class="material-icons">share</i></a>
+				</div>
+				
+				<div class="text-box">
+					<p>{{'Referral Code' | translate}}</p>
+					<h6 style="color: #83b735; text-transform: uppercase;">{{karigar_detail.referral_code ? karigar_detail.referral_code : 'N/A'}}</h6>
+					<!-- <h6>
+						{{'Invite friends, get rewards' | translate}} <span>{{karigar_detail.refer_own_point}}</span> {{'points' | translate}}{{'Share your code' | translate}} <span>
+							{{karigar_detail.referral_code ? karigar_detail.referral_code : 'N/A'}}</span>
+						</h6> -->
+					</div>
+					
+				</div>
+				
+				<button class="primary-btn"  (click)="logout()">
+					{{ 'Logout' | translate}}
+				</button>
+			</div>
+			
+			
+			
+			
+		</div>
+		
+		
+		
+		
+		
+	</ion-content>
+	
+	
+	<ion-content *ngIf="dbService.userStorageData.type == 'Customer'" class="profile-bg">
+		<div class="profile-container">
+			<div class="background-white hero"></div>
+			<div class="user-profile">
+				<div class="dp">
+					<div class="dp-hidden">
+						<img [src]="karigar_detail.profile?karigar_detail.profile:'assets/imgs/profile.jpg'" (click) = "karigar_detail.profile?viewProfiePic():''" >
+					</div>
+					<a class="cmra-btn"><i class="material-icons" (click)="openeditprofile()">camera_alt</i></a>
+				</div>
+				<h2>{{karigar_detail.salutation | titlecase}} {{karigar_detail.first_name |titlecase}} {{karigar_detail.middle_name |titlecase}} {{karigar_detail.last_name |titlecase}}</h2>
+				<h6>{{karigar_detail.type}}</h6>
+				<button class="edit" (click)="editProfilePage()"> <i class="material-icons">edit</i></button>
+				
+			</div>
+			
+			
+			<div class="padding16">
+				
+				<div class="profile-card">
+					<div class="text-box">
+						<p>{{ 'Mobile No.' | translate }}</p>
+						<h6>{{karigar_detail.mobile_no}}</h6>
+					</div>
+					
+					<div class="text-box" *ngIf="karigar_detail.alternate_mobile_no">
+						<p>{{ 'Alt Mobile no.' | translate }}</p>
+						<h6>{{karigar_detail.alternate_mobile_no}}</h6>
+					</div>
+					
+					
+					<div class="text-box" *ngIf="karigar_detail.email">
+						<p>{{ 'Email ID' | translate }}</p>
+						<h6>{{karigar_detail.email}}</h6>
+					</div>
+					
+					<div class="text-box" *ngIf="karigar_detail.address">
+						<p>{{ 'Address' | translate}}</p>
+						<h6>{{karigar_detail.address |titlecase}} {{karigar_detail.state |titlecase}} {{karigar_detail.district |titlecase}} {{karigar_detail.city |titlecase}} {{karigar_detail.pincode }}</h6>
+					</div>
+				</div>
+				
+				
+				
+				
+				<button class="primary-btn"  (click)="logout()">
+					{{ 'Logout' | translate}}
+				</button>
+				
+				<ng-container  *ngIf="appVersion.cust_ios_app_version != version">
+					<button class="danger-btn mt16"  (click)="deleteAccount()">
+						{{ 'Permanent Delete Account' | translate}}
+					</button>
+					
+				</ng-container>	
+			</div>
+			
+			
+		</div>
+		
+		
+	</ion-content>
+	
+	
+	

@@ -1,0 +1,12 @@
+{
+    "declarations": {},
+    "sources": {},
+    "libraries": {
+        "XCDYouTubeKit": {
+            "name": "XCDYouTubeKit",
+            "type": "podspec",
+            "spec": "~> 2.7",
+            "count": 1
+        }
+    }
+}

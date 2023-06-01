@@ -1,0 +1,145 @@
+
+<ion-header class="main-header remove " >
+    <ion-navbar >
+        <ion-title>
+            <ion-title>{{ 'My Points' | translate }}</ion-title>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Pull to refresh" refreshingSpinner="circles" refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
+    <div class="p16 pt16" *ngIf="karigar_point.length != null || karigar_point.length != '' || karigar_point.length != undefind ">
+        
+        
+        <div class="bg-card mb16">
+            
+            <div class="balance">
+                <h4>{{'Total Balance Points'}}</h4>
+                <p><span>{{karigar_point.total_balance}}</span> Points</p>
+                <i class="material-icons">
+                    account_balance_wallet
+                </i>
+            </div>
+           
+            
+            <div class="card-list" > 
+                <div class="card-content">
+                    <p>{{ 'Total Points Earned' | translate }}</p>
+                </div>
+                <div class="points flat pr10">
+                    {{karigar_point.total_earn}}
+                </div>
+            </div>
+          
+            
+            <div class="card-list" (click)="change_page('redeem')">
+                <div class="card-content">
+                    <i class="material-icons">redeem</i>
+                    <p>{{ 'Points Redeemed' | translate }}</p>
+                </div>
+                <div class="points" style="color: #ff0000;">
+                    {{karigar_point.total_redeem}}
+                </div>
+            </div>
+        </div>
+       
+        
+        <div class="bg-card mb16">
+            <div class="card-list" (click)="change_page('scan')">
+                <div class="card-content">
+                    <i class="material-icons">qr_code_scanner</i>
+                    <p>{{ 'Points Earned By Scan' | translate }}</p>
+                </div>
+                <div class="points">
+                    {{karigar_point.earn_by_scan}}
+                </div>
+            </div>
+            <div class="card-list" (click)="change_page('service')"> 
+                <div class="card-content">
+                    <i class="material-icons">plumbing</i>
+                    <p>{{ 'Points Earned by Service' | translate }}</p>
+                </div>
+                <div class="points">
+                    {{karigar_point.earn_by_service}}
+                </div>
+            </div>
+            <div class="card-list" (click)="change_page('referal')"> 
+                <div class="card-content">
+                    <i class="material-icons">share</i>
+                    <p>{{ 'Points Earned By Referral' | translate }}</p>
+                </div>
+                <div class="points">
+                    {{karigar_point.earn_by_referal}}
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="bg-card  flex-pie">
+            <p>Points</p>
+            <div class="pie-chart">
+                <canvas  width="300px" height="300px" #pieCanvas></canvas>
+                <div class="pie-point">
+                    {{karigar_point.total_balance}} <br>
+                    <span>Points</span>
+                </div>
+            </div>
+            <!-- <ul>
+                <li><span style="background: #4a89da;">&nbsp;</span>Scan Points</li>
+                <li><span style="background: #6ed8e3;">&nbsp;</span>Referral Points</li>
+                <li><span >&nbsp;</span>Redeem Points</li>
+            </ul> -->
+        </div>
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <!-- 
+            <ul class="line">
+                <li> 
+                    <ul class="for_inline">
+                        <li>{{ 'Total Earn' | translate}}&nbsp;:-</li>
+                        <li> <span class="fw_700">&nbsp;&nbsp;</span></li>
+                        <li></li>
+                    </ul>
+                </li>
+                <ul class="for_inline" (click)="change_page('redeem')">
+                    <li>{{ 'Redeem' | translate }}&nbsp;:-&nbsp;&nbsp;&nbsp;</li>
+                    <li>{{karigar_point.total_redeem}}</li>
+                    <li> <i class="material-icons">chevron_right</i></li>
+                </ul>
+            </ul>
+            <ul class="pt10">
+                <ul class="for_inline line_bottom">
+                    <li>{{ 'Total Balance' | translate }}&nbsp;:-</li>
+                    <li> <span class="fw_700">&nbsp;&nbsp;{{karigar_point.total_balance}}</span></li>
+                    <li> </li>
+                </ul>
+            </ul> -->
+        </div>
+        
+        
+        
+        <!-- (click)="goOnShippingPage(list.id)" -->
+        
+        
+    </ion-content>
+    
+    <!-- <ion-footer class="csm-footer-tabs">
+        <div class="ftabs">
+            <button ion-item class="ml0" [ngClass]="{'active': filter.active_tab == 'points'}" (click)="change_tab('points')"><p>{{ 'Points History' | translate}}</p></button>
+            <button ion-item class="ml0" [ngClass]="{'active': filter.active_tab == 'redeem'}" (click)="change_tab('redeem')"><p>{{ 'Redeem History' | translate}}</p></button>
+            <button ion-item class="ml0" [ngClass]="{'active': filter.active_tab == 'offer_list'}" (click)="change_tab('offer_list')"><p>{{ 'Redeem Request' | translate }}</p></button>
+        </div>
+    </ion-footer> -->
